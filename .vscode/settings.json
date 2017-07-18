@@ -1,0 +1,16 @@
+{
+    "git.ignoreLimitWarning": true,
+    
+    "search.exclude": {
+        "**/node_modules": true
+    },
+
+    "files.exclude": {
+        "**/node_modules": true,
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "**/.sass-cache/": true,
+        "**/*.map": true,
+        "**/packages": true
+    }
+}
