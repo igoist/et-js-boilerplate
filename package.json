@@ -36,5 +36,7 @@
     "webpack": "^3.3.0"
   },
   "dependencies": {
+    "eslint": "^4.2.0",
+    "eslint-loader": "^1.9.0"
   }
 }

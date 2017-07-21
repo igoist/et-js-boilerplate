@@ -19,7 +19,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loaders: ['babel-loader'],
+        loaders: ['babel-loader', 'eslint-loader'],
         include: path.join(__dirname, srcPath + 'js')
       },
     ]
