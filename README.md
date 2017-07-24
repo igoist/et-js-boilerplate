@@ -1,11 +1,37 @@
+<p align="center">
+  <a href="http://ant.design">
+    <img width="320" src="https://t.alipayobjects.com/images/rmsweb/T1B9hfXcdvXXXXXXXX.svg">
+  </a>
+</p>
+
 # et-js-boilerplate JS 样板 or 脚手架
 
-My proj initial proto with gulp、Webpack to bundle ES6, etc & use scripts to do build tasks
+[![npm package](https://img.shields.io/npm/v/et-js-boilerplate.svg?style=flat-square)](https://www.npmjs.org/package/et-js-boilerplate)
+[![NPM downloads](https://img.shields.io/npm/dm/et-js-boilerplate.svg?style=flat-square)](https://npmjs.org/package/et-js-boilerplate)
+
+A personal or common proj initial proto with gulp、Webpack to bundle ES6, etc & use scripts to do build tasks
+
+
+## 安装 Installation
+Install it once globally:
+```sh
+npm install -g et-js-boilerplate
+```
+
+<br />
+
+## 用法 Usage 
+To create a new project, run:
+```sh
+et-js-boilerplate [options] <folder>
+```
+
+<br />
 
 ## 部署 Deploy
 
 ```sh
-yarn（推荐）
+# yarn 与 8.x.x 版本的 npm 之间有冲突还是怎的
 
 # or
 npm i
@@ -29,7 +55,7 @@ npm run build
 npm run dev
 ```
 
-## 文件结构 file structure
+## 文件结构 File Structure
 ```
 root
 │  
@@ -52,7 +78,7 @@ root
 ├── .nvmrc
 ├── gulpfile.js
 ├── package.json
+├── package-lock.json (Don't simply use yarn.lock in npm 8)
 ├── README.md
-├── webpack.config.js (you can make a new webpack dir & custom by yourself)
-└── yarn.lock
+└── webpack.config.js (you can make a new webpack dir & custom by yourself)
 ```
