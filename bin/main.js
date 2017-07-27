@@ -4,20 +4,169 @@
  * Module dependencies.
  */
  
-const program = require('commander');
+const chalk = require('chalk');
+const commander = require('commander');
+const fs = require('fs-extra');
+const path = require('path');
+const spawn = require('cross-spawn');
  
-program
-    .version('0.1.0')
-    .option('-p, --peppers', 'Add peppers')
-    .option('-P, --pineapple', 'Add pineapple')
-    .option('-b, --bbq-sauce', 'Add bbq sauce')
-    .option('-c, --cheese [type]', 'Add the specified type of cheese [marble]', 'marble')
+const files = [
+    '.vscode',
+    'scripts',
+    'src',
+    '.babelrc',
+    '.editorconfig',
+    '.eslintignore',
+    '.eslintrc.json',
+    '.gitignore',
+    '.nvmrc',
+    'gulpfile.js',
+    'package-lock.json',
+    'README.md',
+    'webpack.config.js'
+];
+const allDependencies = {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.6.0",
+    "eslint": "^4.2.0",
+    "eslint-loader": "^1.9.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-util": "^3.0.8",
+    "webpack": "^3.3.0"
+};
+let packageJson = require('../package.json');
+let projectName;
+
+
+const program = new commander.Command(packageJson.name)
+    .version(packageJson.version)
+    .arguments('<project-directory>')
+    .usage(`${chalk.hex('#58b3ff').bold('<project-directory>')} [options]`)
+    .action(name => {
+        projectName = name;
+    })
+    .option('-i, --install', 'If need to install packages automatically')
+    // .option('-d, --default [project-directory]', 'Default [project-directory]', 'igoist')
     .parse(process.argv);
  
-console.log(process.versions.node);
-console.log(process.argv);
-console.log('you ordered a pizza with:');
-if (program.peppers) console.log('  - peppers');
-if (program.pineapple) console.log('  - pineapple');
-if (program.bbqSauce) console.log('  - bbq');
-console.log('  - %s cheese', program.cheese);
+if (typeof projectName === 'undefined') {
+    console.error('Please specify the project directory:');
+    console.log(
+        `  ${chalk.cyan(program.name())} ${chalk.hex('#58b3ff').bold('<project-directory>')}`
+    );
+    console.log();
+    console.log('For example:');
+    console.log(`  ${chalk.cyan(program.name())} ${chalk.hex('#58b3ff').bold('my-project')}`);
+    console.log();
+    console.log(
+        `Run ${chalk.cyan(`${program.name()} --help`)} to see all options.`
+    );
+    process.exit(1);
+}
+
+createTpl(program.args[0], allDependencies);
+
+function createTpl(name, dependencies) {
+    const root = path.resolve(name);
+    const appName = path.basename(root); // 暂时随便也叫 appName，用到的地方应该不多
+
+    const binRoot = path.resolve(__dirname, '..'); // tpl 目录
+    
+    handlePackageJson(appName, dependencies);
+
+    // 创建目录 create project dir
+    fs.ensureDirSync(appName);
+    if (!isSafeToCreateProjectIn(root)) {
+        console.log(
+        `The directory ${chalk.hex('#58b3ff').bold(name)} contains files that could conflict.`
+        );
+        console.log('Try using a new directory name.');
+        process.exit(1);
+    }
+
+    console.log(`Creating a new Project in ${chalk.green(root)}.`);
+    console.log();
+
+    const originalDirectory = process.cwd();
+    // 写入新的 package.json
+    fs.writeFileSync(
+        path.join(root, 'package.json'),
+        JSON.stringify(packageJson, null, 2)
+    );
+
+    // 进入目录，拷贝样板文件
+    process.chdir(root);
+    files.map((v, i) => {
+        fs.copySync(path.resolve(binRoot, v), path.resolve(process.cwd(), v));
+    });
+
+    console.log(`${chalk.magenta('Basic work is complete.')}`);
+
+    // 若带 -i 参数，自动执行 packages 的安装
+    if(program.install) {
+        install().then(() => {
+            console.log('Success! Created ' + appName + ' at ' + originalDirectory);
+            console.log();
+            console.log('Happy hacking!  :)');
+        });
+    }
+}
+
+function install() {
+    console.log('Installing packages. This might take a couple of minutes.');
+    console.log(
+        `Installing ${chalk.cyan('babel')}, ${chalk.cyan(
+            'eslint'
+        )}, ${chalk.cyan('gulp')}, and ${chalk.cyan('webpack')}...`
+    );
+    return new Promise((resolve, reject) => {
+        let command = 'npm';
+        let args = ['i'];
+        const child = spawn(command, args, { stdio: 'inherit' });
+        child.on('close', code => {
+            if (code !== 0) {
+                reject({
+                    command: `${command} ${args.join(' ')}`,
+                });
+                return;
+            }
+            resolve();
+        });
+    });
+}
+
+function handlePackageJson(appName, dependencies) {
+    packageJson.name = appName;
+    packageJson.version = '0.0.1';
+    delete packageJson.author;
+    delete packageJson.bugs;
+    delete packageJson.dependencies;
+    delete packageJson.homepage;
+    delete packageJson.keywords;
+    delete packageJson.repository;
+    packageJson.devDependencies = dependencies;
+}
+
+// If project only contains files generated by GH, it’s safe.
+// We also special case IJ-based products .idea because it integrates with CRA:
+// https://github.com/igoist/et-js-boilerplate/pull/xxx#issuecomment-xxxxxx
+function isSafeToCreateProjectIn(root) {
+  const validFiles = [
+    '.DS_Store',
+    'Thumbs.db',
+    '.git',
+    '.gitignore',
+    '.idea',
+    'README.md',
+    'LICENSE',
+    'web.iml',
+    '.hg',
+    '.hgignore',
+    '.hgcheck',
+  ];
+  return fs.readdirSync(root).every(file => validFiles.indexOf(file) >= 0);
+}

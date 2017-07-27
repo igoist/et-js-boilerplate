@@ -1,6 +1,7 @@
 <p align="center">
   <a href="http://ant.design">
-    <img width="320" src="https://t.alipayobjects.com/images/rmsweb/T1B9hfXcdvXXXXXXXX.svg">
+    <!-- <img width="320" alt="🔨" src="https://t.alipayobjects.com/images/rmsweb/T1B9hfXcdvXXXXXXXX.svg"> -->
+    <span style="font-size: 320px;">🔨</span>
   </a>
 </p>
 
@@ -23,7 +24,11 @@ npm install -g et-js-boilerplate
 ## 用法 Usage 
 To create a new project, run:
 ```sh
-et-js-boilerplate [options] <folder>
+# first step, create the boilerplate. If you want to install packages automatically, please add -i
+et-js-boilerplate [options] <project-directory>
+
+# next, cd into boilerplate's dir, excute npm init to customize your package.json
+cd <project-directory> && npm init
 ```
 
 <br />
