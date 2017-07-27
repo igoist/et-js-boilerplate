@@ -1,8 +1,9 @@
 {
   "name": "et-js-boilerplate",
-  "version": "0.0.1",
-  "description": "my js proj boilerplate",
-  "main": " ",
+  "version": "0.0.2",
+  "bin": "./bin/cli.js",
+  "description": "mine js proj boilerplate",
+  "main": "",
   "scripts": {
     "prebuild": "./scripts/clean.sh && ./scripts/link.sh && ./scripts/copylib.sh",
     "build": "gulp",
@@ -28,6 +29,12 @@
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
     "babel-preset-env": "^1.6.0",
+    "chalk": "^2.0.1",
+    "commander": "^2.11.0",
+    "cross-spawn": "^5.1.0",
+    "eslint": "^4.2.0",
+    "eslint-loader": "^1.9.0",
+    "fs-extra": "^4.0.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-sass": "^3.1.0",
@@ -35,8 +42,5 @@
     "gulp-util": "^3.0.8",
     "webpack": "^3.3.0"
   },
-  "dependencies": {
-    "eslint": "^4.2.0",
-    "eslint-loader": "^1.9.0"
-  }
+  "dependencies": {}
 }
