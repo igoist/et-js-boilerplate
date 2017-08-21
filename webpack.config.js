@@ -1,5 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 
 const srcPath = './src/';
 
@@ -10,7 +12,7 @@ module.exports = {
 
   output: {
     filename: '[name].bundle.min.js',
-    path: path.resolve(__dirname, 'dist/js'),
+    path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
   },
 
@@ -30,6 +32,13 @@ module.exports = {
       compress: {
         warnings: false
       }
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Development Test',
+      template: 'src/index.html'
     })
-  ]
+  ],
+  devServer: {
+    contentBase: './dist'
+  },
 };

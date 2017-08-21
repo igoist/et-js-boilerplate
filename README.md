@@ -45,7 +45,7 @@ npm i
 npm run build
 
 # final
-该干嘛干嘛，看看 js、css 生效否
+该干嘛干嘛，看看 js、css 生效否，具体是否要配合 server，以及怎么配合这种简单而又复杂的事不要来问我！
 ```
 
 <br />
@@ -57,8 +57,15 @@ npm run build
 # js 部分，运行下面命令，通过 webpack 监听 js 改动，进行增量编译（webpack --watch 也是在内存中还是直接被编译到 dist？）
 # 之后会做相应变动，使得运行一个命令，自动监听 js 与 scss
 # 另外，新增页面的 js 入口文件需要更新到 webpack.config.js 的 entry 当中
+npm run start
+
+# or
 npm run dev
+# just pick one you like
+
 ```
+
+<br />
 
 ## 文件结构 File Structure
 ```
@@ -68,7 +75,8 @@ root
 │   │  
 │   ├── css
 │   ├── img (hashed or just dir link)
-│   └── js (bundle、uglify)
+│   ├── ....bundle.min.js
+│   └── index.bundle.min.js
 ├── scripts (for build 构建时使用的脚本)
 ├── src
 │   │  
@@ -83,7 +91,7 @@ root
 ├── .nvmrc
 ├── gulpfile.js
 ├── package.json
-├── package-lock.json (Don't simply use yarn.lock in npm 8)
+├── package-lock.json (Don't simply use yarn.lock in npm^8, or your can delete this one)
 ├── README.md
-└── webpack.config.js (you can make a new webpack dir & custom by yourself)
+└── webpack.config.js (you can make a new webpack dir & customize by yourself)
 ```

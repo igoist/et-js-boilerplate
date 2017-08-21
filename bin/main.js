@@ -36,7 +36,9 @@ const allDependencies = {
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-util": "^3.0.8",
-    "webpack": "^3.3.0"
+    "html-webpack-plugin": "^2.30.1",
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.7.1"
 };
 let packageJson = require('../package.json');
 let projectName;
@@ -49,7 +51,7 @@ const program = new commander.Command(packageJson.name)
     .action(name => {
         projectName = name;
     })
-    .option('-i, --install', 'If need to install packages automatically')
+    .option('-i, --install', 'If you need to install packages automatically')
     // .option('-d, --default [project-directory]', 'Default [project-directory]', 'igoist')
     .parse(process.argv);
  
