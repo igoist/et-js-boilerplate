@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="http://ant.design">
+  <a href="https://www.npmjs.com/package/et-js-boilerplate">
     <!-- <img width="320" alt="🔨" src="https://t.alipayobjects.com/images/rmsweb/T1B9hfXcdvXXXXXXXX.svg"> -->
     <span style="font-size: 320px;">🔨</span>
   </a>
@@ -84,7 +84,10 @@ root
 │   ├── img
 │   ├── js
 │   ├── sass
-│   └── views (html or tpl)
+│   ├── views (其下每个目录中不需要多余的 html，都以 index.js 为入口，使用了统一模版，举例如下，具体自己去看)
+│       └── dragAndDrop (与 chunk 名称对应)
+│           ├── ...
+│           └── index.js (根据该文件生成 chunk)
 ├── .babelrc
 ├── .editorconfig
 ├── .gitignore

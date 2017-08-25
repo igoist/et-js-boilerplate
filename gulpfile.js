@@ -28,7 +28,7 @@ gulp.task('sass', function() {
         .pipe(sass())
         .pipe(autoprefixer())
         .pipe(sourcemaps.write('./maps'))
-        .pipe(gulp.dest('dist/css'));
+        .pipe(gulp.dest('dist/assets/css'));
 });
 
 gulp.task('build', [
