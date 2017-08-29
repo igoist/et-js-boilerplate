@@ -29,6 +29,7 @@ const allDependencies = {
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
     "babel-preset-env": "^1.6.0",
+    "css-loader": "^0.28.5",
     "eslint": "^4.2.0",
     "eslint-loader": "^1.9.0",
     "gulp": "^3.9.1",
@@ -37,6 +38,9 @@ const allDependencies = {
     "gulp-sourcemaps": "^2.6.0",
     "gulp-util": "^3.0.8",
     "html-webpack-plugin": "^2.30.1",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
     "webpack": "^3.3.0",
     "webpack-dev-server": "^2.7.1"
 };

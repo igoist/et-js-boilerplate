@@ -93,13 +93,13 @@ AutoType.prototype.tick = function() {
 };
 
 const links = {
+    '404': 'page404.html',
     'DragAndDrop': 'dragAndDrop.html'
 };
 
 window.onload = () => {
-    let el = document.createElement('span');
+    let el = document.createElement('div');
     el.classList.add('.txt-rotate');
-    el.innerHTML = 'first';
 
     Object.keys(links).map((key, index) => {
         let aTag = document.createElement('a');
@@ -113,7 +113,7 @@ window.onload = () => {
     document.getElementById('root').appendChild(el);
 
     for (let i = 0; i < 1; i++) {
-        let toRotate = ['nerdy.', 'simple.', 'pure JS.', 'pretty.', 'fun!', '天痕˚制造'];
+        let toRotate = ['nerdy.', 'simple.', 'pure JS.', 'pretty.', 'fun!'];
         let period = 500;
         new AutoType(el, toRotate, period);
     }
